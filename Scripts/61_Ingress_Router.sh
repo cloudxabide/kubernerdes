@@ -1,4 +1,4 @@
-#!/bin/bash
+# -la/bin/bash
 
 #     Purpose:  Configure Ingress (metalLB and emissary)
 #        Date:  2024-05-16
@@ -46,7 +46,6 @@ metadata:
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/audit: privileged
     pod-security.kubernetes.io/warn: privileged
-
 EOF2
 kubectl apply -f metallb-ns.yaml
 
@@ -54,7 +53,7 @@ kubectl config set-context --current --namespace=metallb-system
 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
 
-CIDR_POOL="10.10.13.1-10.10.13.255";;
+CIDR_POOL="10.10.13.1-10.10.13.255"
 cat << EOF1 | tee metallb-configmap.yaml
 ---
 apiVersion: v1
@@ -92,6 +91,4 @@ exit 0
 cleanup() {
 kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
 }
-
-
 
