@@ -9,6 +9,9 @@
 #        Todo: Update process to update Cilium and Hubble CLI, if needed
 #  References: https://isovalent.com/blog/post/cilium-eks-anywhere/
 
+
+mkdir cilium; cd $_
+
 # Install a test app
 kubectl create namespace hello-eksa-a
 kubectl apply -f "https://anywhere.eks.amazonaws.com/manifests/hello-eks-a.yaml" -n hello-eksa-a
