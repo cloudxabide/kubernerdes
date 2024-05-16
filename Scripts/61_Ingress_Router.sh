@@ -1,4 +1,4 @@
-# -la/bin/bash
+#!/bin/bash
 
 #     Purpose:  Configure Ingress (metalLB and emissary)
 #        Date:  2024-05-16
@@ -8,26 +8,30 @@
 #  References:
 
 
+########################### ###########################
 # Install Emissary Ingress
+# Add the Repo:
 helm repo add datawire https://app.getambassador.io
 helm repo update
-
+ 
 # Create Namespace and Install:
 kubectl create namespace emissary && \
 kubectl apply -f https://app.getambassador.io/yaml/emissary/3.9.1/emissary-crds.yaml
-
+ 
 kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
-
+ 
 helm install emissary-ingress --namespace emissary datawire/emissary-ingress && \
 kubectl -n emissary wait --for condition=available --timeout=90s deploy -lapp.kubernetes.io/instance=emissary-ingress
 
-kubectl get svc  --namespace emissary emissary-ingress
+########################### ###########################
+# Install MetalLB
 
-# See what changes would occur
+# First, see what changes would occur
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl diff -f - -n kube-system
-# Apply those changes
+
+# Then, apply those changes
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl apply -f - -n kube-system
@@ -77,7 +81,7 @@ cat << EOF43 | tee L2Advertisement.yaml
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
-  name: example
+  name: default
   namespace: metallb-system
 EOF43
 kubectl apply -f L2Advertisement.yaml
