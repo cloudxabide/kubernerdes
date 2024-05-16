@@ -35,8 +35,6 @@ kubectl apply -f - -n kube-system
 mkdir ~/eksa/$CLUSTER_NAME/latest/metallb;
 cd ~/eksa/$CLUSTER_NAME/latest/metallb
 
-CIDR_POOL="10.10.13.1-10.10.13.255";;
-
 # Test without this
 cat << EOF2 | tee metallb-ns.yaml
 ---
@@ -56,6 +54,7 @@ kubectl config set-context --current --namespace=metallb-system
 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
 
+CIDR_POOL="10.10.13.1-10.10.13.255";;
 cat << EOF1 | tee metallb-configmap.yaml
 ---
 apiVersion: v1
