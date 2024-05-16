@@ -48,28 +48,24 @@ The only "customization" I am going to pursue is hosting the OS Image and Hooks 
 * [EKS Tools](Scripts/11_Install_EKS_Tools.sh)
 * [BIND](Scripts/15_Install_BIND9.sh)
 
-While not necessary, I will include the WebServer in case you wish to host your own artifacts (such as: osImage, hookImages)
+While not necessary, I include the WebServer so that the artifacts can be provided (such as: osImage, hookImages)
 * [WWW Server](Scripts/Install_HTTP_Server.sh) - add WebServer to listen on 8080
 
 Uneeded (this is all handled by the "tinkerbell boots" container):  
-* [NFS Server](Scripts/Install_NFS_Server.sh) - add NFS Server to provide shared/persistent storage (I replaced the necessity for PVs with OpenEBS)  
 * [DHCP Server](Scripts/Install_DHCP_Server.sh)
-* TFTP
 
-## Tested Configurations
+## Configurations for this Deployment (3 x NUC)
 My "inventory" or "hardware.csv" files do not include BMC info - primarily because my NUC(s) have no ILO/BMC.
 
 | Control-Plane | Worker Nodes | GPU Nodes | Inventory File |
 |:-------------:|:------------:|:---------:|:---------------|
 | 3 | 0 | 0 | [Hardware 3_0](Files/hardware-3_0.csv) |
-| 1 | 2 | 0 | [Hardware 1_2](Files/hardware-1_2.csv) |
-| 3 | 0 | 1 | [Hardware 3_0_1](Files/hardware-3_0_1.csv) |
 
 ## Deploy EKS Anywhere Cluster
 **ProTip:**
-If you only use labels of "node=cp-machine" in your hardware.csv inventory file, and remove the WorkerNodeGroup from your clusterConfig, your Control-Plane nodes will not be tainted and workloads can run there.  (so, I will either have 3 x Control-Plane nodes that also act as Worker Nodes - or you have 1 x CP and 2 x Worker Nodes)  
+I only use labels of "node=cp-machine" in the hardware.csv inventory file, and remove the WorkerNodeGroup from the clusterConfig, as a result Control-Plane nodes will not be tainted and workloads can run there.  
 
-I generally start with the following to rebuild my cluster  
+Start with the following to deploy the cluster  
 [Install EKS Anywhere](Scripts/50_Deploy_BareMetal_EKS-A_Cluster.sh)
 
 ## Utilization
