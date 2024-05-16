@@ -7,25 +7,9 @@
 #        Todo:
 #  References:
 
-
-########################### ###########################
-# Install Emissary Ingress
-# Add the Repo:
-helm repo add datawire https://app.getambassador.io
-helm repo update
- 
-# Create Namespace and Install:
-kubectl create namespace emissary && \
-kubectl apply -f https://app.getambassador.io/yaml/emissary/3.9.1/emissary-crds.yaml
- 
-kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
- 
-helm install emissary-ingress --namespace emissary datawire/emissary-ingress && \
-kubectl -n emissary wait --for condition=available --timeout=90s deploy -lapp.kubernetes.io/instance=emissary-ingress
-
 ########################### ###########################
 # Install MetalLB
-
+# https://metallb.universe.tf/installation/
 # First, see what changes would occur
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
@@ -36,7 +20,7 @@ kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl apply -f - -n kube-system
 
-mkdir ~/eksa/$CLUSTER_NAME/latest/metallb;
+mkdir ~/eksa/$CLUSTER_NAME/latest/metallb
 cd ~/eksa/$CLUSTER_NAME/latest/metallb
 
 # Test without this
@@ -58,37 +42,44 @@ kubectl config set-context --current --namespace=metallb-system
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
 
 CIDR_POOL="10.10.13.1-10.10.13.255"
-cat << EOF1 | tee metallb-configmap.yaml
+cat << EOF4 | tee metallb-config.yaml
 ---
-apiVersion: v1
-kind: ConfigMap
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
 metadata:
-  namespace:  metallb-system
-  name: config
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - $CIDR_POOL
-
-EOF1
-kubectl apply -f metallb-configmap.yaml
-
-cat << EOF43 | tee L2Advertisement.yaml
+  name: default
+  namespace: metallb-system
+spec:
+  addresses:
+  - $CIDR_POOL
+  autoAssign: true
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: default
   namespace: metallb-system
-EOF43
-kubectl apply -f L2Advertisement.yaml
+spec:
+  ipAddressPools:
+  - default
+EOF4
+kubectl apply -f metallb-config.yaml
+cd -
 
-kubectl rollout restart deployment controller -n metallb-system
+########################### ###########################
+# Install Emissary Ingress
+# Add the Repo:
+helm repo add datawire https://app.getambassador.io
+helm repo update
 
-kubectl config set-context --current --namespace=default
+# Create Namespace and Install:
+kubectl create namespace emissary && \
+kubectl apply -f https://app.getambassador.io/yaml/emissary/3.9.1/emissary-crds.yaml
+
+kubectl wait --timeout=90s --for=condition=available deployment emissary-apiext -n emissary-system
+
+helm install emissary-ingress --namespace emissary datawire/emissary-ingress && \
+kubectl -n emissary wait --for condition=available --timeout=90s deploy -lapp.kubernetes.io/instance=emissary-ingress
 
 exit 0
 
