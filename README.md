@@ -1,6 +1,7 @@
 # My Kubernetes Lab - kubernerdes.lab 
 
-This is the chronicles of deploying Kubernetes (EKS Anywhere) in my HomeLab: The Kubernerdes lab.
+This is the chronicles of deploying Kubernetes (Amazon EKS Anywhere) in my HomeLab: The Kubernerdes lab.
+This opinionated installation 
 
 **Goal:**  
 Create my own EKS Anywhere environment using bare metal (Intel NUCs) starting with a USB stick with install media (Ubuntu Server 22.04 - though I am considering Ubuntu Desktop now that I have been "using their ecosystem" for a while) and an Internet connection.  I want this environment to be completely independent of everything else in my lab. 
