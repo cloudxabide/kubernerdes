@@ -1,10 +1,21 @@
 # My Kubernetes Lab - kubernerdes.lab 
 
 This is the chronicles of deploying Kubernetes (Amazon EKS Anywhere) in my HomeLab: The Kubernerdes lab.
-This opinionated installation 
+This opinionated installation utilzing Amazon EKS Anywhere and Open Source Software.
+
+| Project Homepage | Description |
+|:-----------------|:-------------|
+| [EKS-Anywhere](https://anywhere.eks.amazonaws.com/) | Amazon EKS Anywhere is container management software built by AWS that makes it easier to run and manage Kubernetes on-premises and at the edge. |
+| [Emissary](https://www.getambassador.io/docs/emissary/latest/tutorials/getting-started) | Ingress |
+| [MetalLB](https://metallb.universe.tf/) | MetalLB is a load-balancer implementation for bare metal Kubernetes clusters, using standard routing protocols. |
+| [Cilium (OSS)](https://cilium.io/) <BR> (from [Isovalent - a Cisco Company)](https://isovalent.com/) | Cilium is a networking, observability, and security solution with an eBPF-based dataplane. |
+| [Hubble](https://github.com/cilium/hubble) | Hubble is a fully distributed networking and security observability platform for cloud native workloads. |
+| [Prometheus](https://prometheus.io/) | From metrics to insight Power your metrics and alerting with the leading open-source monitoring solution. |
+| [Grafana](https://github.com/grafana/grafana) | The open and composable observability and data visualization platform. |
+
 
 **Goal:**  
-Create my own EKS Anywhere environment using bare metal (Intel NUCs) starting with a USB stick with install media (Ubuntu Server 22.04 - though I am considering Ubuntu Desktop now that I have been "using their ecosystem" for a while) and an Internet connection.  I want this environment to be completely independent of everything else in my lab. 
+Deploy EKS Anywhere environment using bare metal (Intel NUCs) starting with a USB stick with install media (Ubuntu Server 22.04 + Desktop). This environment will be completely independent of everything else in my lab. 
 
 **Status:**  
 Work in Progress.  But, everything you need is in the [AWS Docs](https://anywhere.eks.amazonaws.com/docs/) - dedicate an afternoon and you'll be far enough along to roll out a K8s cluster.  Also - I am likely going through several iterations of how to name my files appropriately - like incuding K8s version, or node count in the file name.
@@ -13,7 +24,7 @@ I anticiapte that there will be some refactoring occurring - mostly regarding wh
 **Prologue:**  
 Note:  Anything in my "scripts" that is encapsulated in a bash routine - ie. my_route(){ code; } generally means it is some optional code that I won't generally use. (like installing the Desktop UI)
 
-The ["Scripts"](./Scripts) directory is where all the scripts live (obviously?), but I have created a directory in the Scripts directory that will have symlinks back to the parent dir.  The reason: not all the scripts apply to every implementation style (i.e. bareMetal is different than vSphere) but there are a number of common scripts.
+The ["Scripts"](./Scripts) directory is where all the scripts live (obviously?). Eventually they will be "runable" using (sh ./10_script.sh) - but at this point, the scripts are primarily used as cut-and-paste.
 
 This project has been created to be a [network enclave](https://en.wikipedia.org/wiki/Network_enclave) - meaning, it should be able to "stand alone" and function.  That carries some assumptions:
 
