@@ -96,10 +96,7 @@ kubectl delete rolebinding cilium-config-agent -n kube-system
 clean-up-accounts
 
 # helm install cilium cilium/cilium --version 1.13.3 \
-case $CLUSTER_NAME in 
-  vsphere-eksa) MYINTERFACE=eth0;;
-  kubernerdes-eksa) MYINTERFACE=eno1;;
-esac
+MYINTERFACE=eno1
   
 helm install cilium cilium/cilium --version $CILIUM_DEFAULT_VERSION \
   --namespace kube-system \
