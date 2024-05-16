@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-#      Status: Complete/Done
-#        Date: 2024-05-16
 #     Purpose: To configure the "admin host" (aka thekubernerd) once the OS is installed and host is on the network
+#        Date: 2024-05-16
+#      Status: Complete/Done
 # Assumptions: It is assumed this is being run on a "newly deployed Ubuntu Host".  I did not necessarilly create it to 
 #                be idempotent.
-#
+#        Todo: 
 
 # Set some VARS
 NEEDSRESTART=0
