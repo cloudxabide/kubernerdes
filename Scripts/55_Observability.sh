@@ -22,14 +22,12 @@ kubectl wait \
 	--namespace=monitoring
 kubectl apply -f manifests/
 while sleep 2; do kubectl get all -n monitoring | egrep 'ContainerCreating|Init' || break; done
-kubectl config set-context --current --namespace=default
 cd -
 
 ## Install Grafana
-kubectl config set-context --current --namespace=monitoring
-mkdir monitoring
 GRAFANA_NAMESPACE=monitoring
-kubectl create namespace $GRAFANA_NAMESPACE 
+kubectl config set-context --current --namespace=$GRAFANA_NAMESPACE || { kubectl create ns $GRAFANA_NAMESPACE; kubectl config set-context --current --namespace=$GRAFANA_NAMESPACE; }
+mkdir $GRAFANA_NAMESPACE; cd $GRAFANA_NAMESPACE
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm install my-grafana grafana/grafana --namespace  $GRAFANA_NAMESPACE

@@ -10,7 +10,6 @@
 
 # Status:  Need to work on this and figure out how to assign pre-determined addresses to service
 #            Likely do an NSLOOKUP to get the IP from DNS, then assign
-APPDOMAIN="apps.kubernerdes.lab"
 
 cd ~/eksa/$CLUSTER_NAME/latest/
 
@@ -35,4 +34,5 @@ kubectl get svc -A | grep LoadBalancer
 exit 0
 
 # I will Add these Grafana dashboards 315 1860 18283
-
+# The URL for the prometheus endpoint (to add as a Datasource for Grafana) 
+# http://prometheus-k8s.monitoring:9090
