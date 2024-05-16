@@ -10,9 +10,7 @@
 # https://github.com/prometheus-operator/prometheus-operator
 # https://github.com/prometheus-operator/kube-prometheus
 
-# Create the namespace and CRDs, and then wait for them to be available before creating the remaining resources
-# Note that due to some CRD size we are using kubectl server-side apply feature which is generally available since kubernetes 1.22.
-# If you are using previous kubernetes versions this feature may not be available and you would need to use kubectl create instead.
+kubectl config set-context --current --namespace=default
 
 git clone https://github.com/prometheus-operator/kube-prometheus.git
 cd kube-prometheus/
@@ -25,8 +23,11 @@ kubectl wait \
 kubectl apply -f manifests/
 while sleep 2; do kubectl get all -n monitoring | egrep 'ContainerCreating|Init' || break; done
 kubectl config set-context --current --namespace=default
+cd -
 
 ## Install Grafana
+kubectl config set-context --current --namespace=monitoring
+mkdir monitoring
 GRAFANA_NAMESPACE=monitoring
 kubectl create namespace $GRAFANA_NAMESPACE 
 helm repo add grafana https://grafana.github.io/helm-charts
@@ -43,6 +44,9 @@ persistence:
   storageClassName:  $DEFAULT_STORAGE_CLASS 
 EOF1
 helm upgrade my-grafana grafana/grafana -f my-grafana-storage.yaml -n $GRAFANA_NAMESPACE 
+
+exit 0
+
 
 clean_up() {
 for n in $(kubectl get namespaces -o jsonpath={..metadata.name}); do
@@ -61,5 +65,4 @@ kubectl delete --ignore-not-found customresourcedefinitions \
   prometheusrules.monitoring.coreos.com
 }
 
-exit 0
 
