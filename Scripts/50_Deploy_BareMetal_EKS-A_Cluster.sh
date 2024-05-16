@@ -82,6 +82,7 @@ eksctl anywhere create cluster \
 exit 0
 
 # Now that you have started the installation, shift focus to your other terminal and watch the pods 
+echo ""
 echo "You will now see the docker command (below) wait until the -boots- container is running, then move to the next step to follow the boots process"
 echo "I typically do not start powering on nodes until I see 'Creating new workload cluster' from the installer output"
 echo ""
@@ -89,12 +90,3 @@ echo "You should now start to power on your NUC, one at a time, and hit F12 unti
 echo "  Wait for the initramfs to finish loading, then move to the next node"; sleep 3
 echo ""
 while sleep 2; do echo -n "Waiting for 'Running'....then will proceed. "; date; docker ps -a | grep boots && break ; done && sleep 30 && docker logs -f $(docker ps -a | grep boots | awk '{ print $1 }')
-
-
-alt_install() {
-eksctl anywhere create cluster \
-   --hardware-csv hardware.csv \
-   -f $CLUSTER_CONFIG \
-   --install-packages packages.yaml
-}
-
