@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#     Purpose: 
-#        Date:
-#      Status: 
-# Assumptions:
+#     Purpose:  Install EKS Toolsn
+#        Date:  2024-05-16
+#      Status:  Working
+# Assumptions:  
 #        Todo:
 
 # Make sure SNAP is installed

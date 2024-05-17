@@ -61,10 +61,10 @@ mkdir $CLUSTER_NAME
 eksctl anywhere generate clusterconfig $CLUSTER_NAME --provider tinkerbell > $CLUSTER_CONFIG.default
 
 # Retrieve the hardware inventory csv file
-curl -o hardware.csv https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/hardware-${NODE_LAYOUT}.csv
+curl -o hardware.csv $REPO/main/Files/hardware-${NODE_LAYOUT}.csv
 
 # However, I have one that I have already modified for my needs
-curl -o $CLUSTER_CONFIG.vanilla https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/$CLUSTER_CONFIG_SOURCE
+curl -o $CLUSTER_CONFIG.vanilla $REPO/main/Files/$CLUSTER_CONFIG_SOURCE
 
 # Retrieve the pub key for the "kubernedes.lab" domain
 export MY_SSH_KEY=$(cat ~/.ssh/*kubernerdes.lab.pub)

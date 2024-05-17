@@ -10,20 +10,20 @@ sudo apt install -y bind9 bind9utils bind9-doc
 sudo sed -i -e 's/bind/bind -4/g' /etc/default/named
 
 sudo cp /etc/bind/named.conf.options /etc/bind/named.conf.options.bak
-curl https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/etc_bind_named.conf.options | sudo tee /etc/bind/named.conf.options
+curl $REPO/main/Files/etc_bind_named.conf.options | sudo tee /etc/bind/named.conf.options
 sudo systemctl enable named.service --now
 
 # Add all of the zone files to the BIND config
 sudo cp /etc/bind/named.conf.local /etc/bind/named.conf.local.bak
-curl https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/etc_bind_named.conf.local | sudo tee /etc/bind/named.conf.local
+curl $REPO/main/Files/etc_bind_named.conf.local | sudo tee /etc/bind/named.conf.local
 
 sudo mkdir -p /etc/bind/zones
 for ZONE in 12 13 14 15
 do 
-  curl https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/etc_bind_zones_db.$ZONE.10.10.in-addr.arpa | sudo tee /etc/bind/zones/db.$ZONE.10.10.in-addr.arpa
+  curl $REPO/main/Files/etc_bind_zones_db.$ZONE.10.10.in-addr.arpa | sudo tee /etc/bind/zones/db.$ZONE.10.10.in-addr.arpa
 done 
-curl https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/etc_bind_zones_db.kubernerdes.lab | sudo tee /etc/bind/zones/db.kubernerdes.lab
-curl https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/etc_bind_zones_db.apps.kubernerdes.lab | sudo tee /etc/bind/zones/db.apps.kubernerdes.lab
+curl $REPO/main/Files/etc_bind_zones_db.kubernerdes.lab | sudo tee /etc/bind/zones/db.kubernerdes.lab
+curl $REPO/main/Files/etc_bind_zones_db.apps.kubernerdes.lab | sudo tee /etc/bind/zones/db.apps.kubernerdes.lab
 
 # Validate all the zone files
 cd /etc/bind/zones

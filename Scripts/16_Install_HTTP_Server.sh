@@ -22,7 +22,7 @@ sudo systemctl enable --now ufw
 }
 
 # Update the index page to be a dynamic version run in PHP
-sudo curl -o /var/www/html/index.php https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/index.php
+sudo curl -o /var/www/html/index.php $REPO/main/Files/index.php
 sudo chown -R www-data:www-data /var/www
 exit 0
 
