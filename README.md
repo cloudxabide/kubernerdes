@@ -8,7 +8,7 @@ This opinionated installation utilzing Amazon EKS Anywhere and Open Source Softw
 | [EKS-Anywhere](https://anywhere.eks.amazonaws.com/) | Amazon EKS Anywhere is container management software built by AWS that makes it easier to run and manage Kubernetes on-premises and at the edge. |
 | [Emissary](https://www.getambassador.io/docs/emissary/latest/tutorials/getting-started) | Ingress |
 | [MetalLB](https://metallb.universe.tf/) | MetalLB is a load-balancer implementation for bare metal Kubernetes clusters, using standard routing protocols. |
-| [Cilium (OSS)](https://cilium.io/) <BR> (from [Isovalent - a Cisco Company)](https://isovalent.com/) | Cilium is a networking, observability, and security solution with an eBPF-based dataplane. |
+| [Cilium (OSS)](https://cilium.io/) | Cilium is a networking, observability, and security solution with an eBPF-based dataplane. <BR> (from [Isovalent - a Cisco Company)](https://isovalent.com/) | 
 | [Hubble](https://github.com/cilium/hubble) | Hubble is a fully distributed networking and security observability platform for cloud native workloads. |
 | [Prometheus](https://prometheus.io/) | From metrics to insight Power your metrics and alerting with the leading open-source monitoring solution. |
 | [Grafana](https://github.com/grafana/grafana) | The open and composable observability and data visualization platform. |
