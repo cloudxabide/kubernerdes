@@ -15,7 +15,7 @@ This opinionated installation utilzing Amazon EKS Anywhere and Open Source Softw
 
 
 **Goal:**  
-Deploy EKS Anywhere environment using bare metal (Intel NUCs) starting with a USB stick with install media (Ubuntu Server 22.04 + Desktop). This environment will be completely independent of everything else in my lab. 
+Deploy EKS Anywhere environment using bare metal (Intel NUCs) starting with a USB stick with install media (Ubuntu Server 22.04 + Desktop Software). This environment will be completely independent of everything else in my lab. 
 
 **Status:**  
 Work in Progress.  But, everything you need is in the [AWS Docs](https://anywhere.eks.amazonaws.com/docs/) - dedicate an afternoon and you'll be far enough along to roll out a K8s cluster.  Also - I am likely going through several iterations of how to name my files appropriately - like incuding K8s version, or node count in the file name.
