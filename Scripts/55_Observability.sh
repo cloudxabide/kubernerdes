@@ -43,6 +43,56 @@ persistence:
 EOF1
 helm upgrade my-grafana grafana/grafana -f my-grafana-storage.yaml -n $GRAFANA_NAMESPACE 
 
+## Kubernetes Dashbaord (WIP)
+# https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+kubectl -n kubernetes-dashboard patch svc kubernetes-dashboard-kong-proxy -p='{"spec": {"type": "LoadBalancer"}}'
+
+# https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
+cat << EOF3 | tee kubernetes-dashboard-sa.yaml
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+EOF3
+kubectl apply -f kubernetes-dashboard-sa.yaml
+
+cat << EOF5 | tee kubernetes-dashboard-clusterrolebinding.yaml
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+EOF5
+kubectl apply -f kubernetes-dashboard-clusterrolebinding.yaml
+
+# kubectl -n kubernetes-dashboard create token admin-user
+
+cat << EOF6 | tee kubernetes-dashboard-sa-token.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+  annotations:
+    kubernetes.io/service-account.name: "admin-user"   
+type: kubernetes.io/service-account-token  
+EOF6
+kubectl apply -f kubernetes-dashboard-sa-token.yaml
+kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
+
 exit 0
 
 
