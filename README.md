@@ -22,7 +22,7 @@ Work in Progress.  But, everything you need is in the [AWS Docs](https://anywher
 I anticiapte that there will be some refactoring occurring - mostly regarding where different steps/tasks are, and the filenames where the tasks are documented.  
 
 **Prologue:**  
-Note:  Anything in my "scripts" that is encapsulated in a bash routine - ie. my_route(){ code; } generally means it is some optional code that I won't generally use. (like installing the Desktop UI)
+Note:  Any code found in my "scripts" that is encapsulated in a bash routine - ie. my_route(){ code; } generally means it is some optional code that I won't generally use. (like installing the Desktop UI)
 
 The ["Scripts"](./Scripts) directory is where all the scripts live (obviously?). Eventually they will be "runable" using (sh ./10_script.sh) - but at this point, the scripts are primarily used as cut-and-paste.
 
