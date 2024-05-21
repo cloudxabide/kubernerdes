@@ -1,7 +1,7 @@
 # My Kubernetes Lab - kubernerdes.lab 
 
-This is the chronicles of deploying Kubernetes (Amazon EKS Anywhere) in my HomeLab: The Kubernerdes lab.
-This opinionated installation utilzing Amazon EKS Anywhere and Open Source Software.
+This is the chronicles of deploying Kubernetes (Amazon EKS Anywhere) in a HomeLab: The Kubernerdes lab.
+This opinionated installation utilzes Amazon EKS Anywhere and Open Source Software.
 
 | Project Homepage | Description |
 |:-----------------|:-------------|
@@ -18,9 +18,8 @@ This opinionated installation utilzing Amazon EKS Anywhere and Open Source Softw
 Deploy EKS Anywhere environment using bare metal (Intel NUCs) starting with a USB stick with install media (Ubuntu Server 22.04 + Desktop Software). This environment will be completely independent of everything else in my lab. 
 
 **Status:**  
-Work in Progress.  But, everything you need is in the [AWS Docs](https://anywhere.eks.amazonaws.com/docs/) - dedicate an afternoon and you'll be far enough along to roll out a K8s cluster.  Also - I am likely going through several iterations of how to name my files appropriately - like incuding K8s version, or node count in the file name.
-I anticiapte that there will be some refactoring occurring - mostly regarding where different steps/tasks are, and the filenames where the tasks are documented.  
-
+Work in Progress.  But, if something is missig, everything you need is in the [AWS Docs](https://anywhere.eks.amazonaws.com/docs/) - dedicate an afternoon and you'll be far enough along to roll out a K8s cluster.  
+There will be some refactoring occurring - mostly regarding where different steps/tasks are, and the filenames where the tasks are documented.  
 **Prologue:**  
 Note:  Any code found in my "scripts" that is encapsulated in a bash routine - ie. my_route(){ code; } generally means it is some optional code that I won't generally use. (like installing the Desktop UI)
 
