@@ -103,7 +103,7 @@ Resources:
       - Key: Network
         Value: Public
 
-  private-route-table01:
+  PrivateRouteTable1:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
@@ -113,7 +113,7 @@ Resources:
       - Key: Network
         Value: Private01
 
-  private-route-table02:
+  PrivateRouteTable2:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
@@ -123,7 +123,7 @@ Resources:
       - Key: Network
         Value: Private02
 
-  private-route-table03:
+  PrivateRouteTable3:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
@@ -133,7 +133,7 @@ Resources:
       - Key: Network
         Value: Private03
 
-  tgw-route-table01:
+  TgwRouteTable1:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
@@ -143,7 +143,7 @@ Resources:
       - Key: Network
         Value: Tgw Route Table01
 
-  tgw-route-table02:
+  TgwRouteTable2:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
@@ -153,7 +153,7 @@ Resources:
       - Key: Network
         Value: Tgw Route Table02
 
-  tgw-route-table03:
+  TgwRouteTable3:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
@@ -171,126 +171,126 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref InternetGateway
 
-  private-route01:
+  PrivateRoute1:
     DependsOn:
     - VPCGatewayAttachment
-    - nat-gateway01
+    - NatGateway1
     Type: AWS::EC2::Route
     Properties:
-      RouteTableId: !Ref private-route-table01
+      RouteTableId: !Ref PrivateRouteTable1
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref nat-gateway01
+      NatGatewayId: !Ref NatGateway1
 
-  private-route02:
+  PrivateRoute2:
     DependsOn:
     - VPCGatewayAttachment
-    - nat-gateway02
+    - NatGateway2
     Type: AWS::EC2::Route
     Properties:
-      RouteTableId: !Ref private-route-table02
+      RouteTableId: !Ref PrivateRouteTable2
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref nat-gateway02
+      NatGatewayId: !Ref NatGateway2
 
-  private-route03:
+  PrivateRoute3:
     DependsOn:
     - VPCGatewayAttachment
-    - nat-gateway03
+    - NatGateway3
     Type: AWS::EC2::Route
     Properties:
-      RouteTableId: !Ref private-route-table03
+      RouteTableId: !Ref PrivateRouteTable3
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref nat-gateway03
+      NatGatewayId: !Ref NatGateway3
 
-  tgw-route01:
+  TgwRoute1:
     DependsOn:
     - VPCGatewayAttachment
-    - nat-gateway01
+    - NatGateway1
     Type: AWS::EC2::Route
     Properties:
-      RouteTableId: !Ref tgw-route-table01
+      RouteTableId: !Ref TgwRouteTable1
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref nat-gateway01
+      NatGatewayId: !Ref NatGateway1
 
-  tgw-route02:
+  TgwRoute2:
     DependsOn:
     - VPCGatewayAttachment
-    - nat-gateway02
+    - NatGateway2
     Type: AWS::EC2::Route
     Properties:
-      RouteTableId: !Ref tgw-route-table02
+      RouteTableId: !Ref TgwRouteTable2
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref nat-gateway02
+      NatGatewayId: !Ref NatGateway2
 
-  tgw-route03:
+  TgwRoute3:
     DependsOn:
     - VPCGatewayAttachment
-    - nat-gateway03
+    - NatGateway3
     Type: AWS::EC2::Route
     Properties:
-      RouteTableId: !Ref tgw-route-table03
+      RouteTableId: !Ref TgwRouteTable3
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref nat-gateway03
-  nat-gateway01:
+      NatGatewayId: !Ref NatGateway3
+  NatGateway1:
     DependsOn:
-    - nat-gatewayEIP1
-    - public-subnet01
+    - NatGatewayEIP1
+    - PublicSubnet1
     - VPCGatewayAttachment
     Type: AWS::EC2::NatGateway
     Properties:
-      AllocationId: !GetAtt 'nat-gatewayEIP1.AllocationId'
-      SubnetId: !Ref public-subnet01
+      AllocationId: !GetAtt 'NatGatewayEIP1.AllocationId'
+      SubnetId: !Ref PublicSubnet1
       Tags:
       - Key: Name
-        Value: !Sub '${AWS::StackName}-nat-gatewayAZ1'
+        Value: !Sub '${AWS::StackName}-NatGatewayAZ1'
 
-  nat-gateway02:
+  NatGateway2:
     DependsOn:
-    - nat-gatewayEIP2
-    - public-subnet02
+    - NatGatewayEIP2
+    - PublicSubnet2
     - VPCGatewayAttachment
     Type: AWS::EC2::NatGateway
     Properties:
-      AllocationId: !GetAtt 'nat-gatewayEIP2.AllocationId'
-      SubnetId: !Ref public-subnet02
+      AllocationId: !GetAtt 'NatGatewayEIP2.AllocationId'
+      SubnetId: !Ref PublicSubnet2
       Tags:
       - Key: Name
-        Value: !Sub '${AWS::StackName}-nat-gatewayAZ2'
+        Value: !Sub '${AWS::StackName}-NatGatewayAZ2'
 
-  nat-gateway03:
+  NatGateway3:
     DependsOn:
-    - nat-gatewayEIP3
-    - public-subnet03
+    - NatGatewayEIP3
+    - PublicSubnet3
     - VPCGatewayAttachment
     Type: AWS::EC2::NatGateway
     Properties:
-      AllocationId: !GetAtt 'nat-gatewayEIP3.AllocationId'
-      SubnetId: !Ref public-subnet03
+      AllocationId: !GetAtt 'NatGatewayEIP3.AllocationId'
+      SubnetId: !Ref PublicSubnet3
       Tags:
       - Key: Name
-        Value: !Sub '${AWS::StackName}-nat-gatewayAZ3'
+        Value: !Sub '${AWS::StackName}-NatGatewayAZ3'
 
-  nat-gatewayEIP1:
+  NatGatewayEIP1:
     DependsOn:
     - VPCGatewayAttachment
     Type: 'AWS::EC2::EIP'
     Properties:
       Domain: vpc
 
-  nat-gatewayEIP2:
+  NatGatewayEIP2:
     DependsOn:
     - VPCGatewayAttachment
     Type: 'AWS::EC2::EIP'
     Properties:
       Domain: vpc
 
-  nat-gatewayEIP3:
+  NatGatewayEIP3:
     DependsOn:
     - VPCGatewayAttachment
     Type: 'AWS::EC2::EIP'
     Properties:
       Domain: vpc
 
-  public-subnet01:
+  PublicSubnet1:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Subnet 01
@@ -307,11 +307,11 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-public-subnet01"
+        Value: !Sub "${AWS::StackName}-PublicSubnet1"
       - Key: kubernetes.io/role/elb
         Value: 1
 
-  public-subnet02:
+  PublicSubnet2:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Subnet 02
@@ -328,11 +328,11 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-public-subnet02"
+        Value: !Sub "${AWS::StackName}-PublicSubnet2"
       - Key: kubernetes.io/role/elb
         Value: 1
 
-  public-subnet03:
+  PublicSubnet3:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Subnet 03
@@ -349,11 +349,11 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-public-subnet03"
+        Value: !Sub "${AWS::StackName}-PublicSubnet3"
       - Key: kubernetes.io/role/elb
         Value: 1
 
-  private-subnet01:
+  PrivateSubnet1:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Private Subnet 01
@@ -369,11 +369,11 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-private-subnet01"
+        Value: !Sub "${AWS::StackName}-PrivateSubnet1"
       - Key: kubernetes.io/role/internal-elb
         Value: 1
 
-  private-subnet02:
+  PrivateSubnet2:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Private Subnet 02
@@ -389,11 +389,11 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-private-subnet02"
+        Value: !Sub "${AWS::StackName}-PrivateSubnet2"
       - Key: kubernetes.io/role/internal-elb
         Value: 1
 
-  private-subnet03:
+  PrivateSubnet3:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Private Subnet 03
@@ -409,11 +409,11 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-private-subnet03"
+        Value: !Sub "${AWS::StackName}-PrivateSubnet3"
       - Key: kubernetes.io/role/internal-elb
         Value: 1
 
-  tgw-subnet01:
+  TgwSubnet1:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Tgw Subnet 01
@@ -429,9 +429,9 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-tgw-subnet01"
+        Value: !Sub "${AWS::StackName}-TgwSubnet1"
 
-  tgw-subnet02:
+  TgwSubnet2:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Tgw Subnet 02
@@ -447,9 +447,9 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-tgw-subnet02"
+        Value: !Sub "${AWS::StackName}-TgwSubnet2"
 
-  tgw-subnet03:
+  TgwSubnet3:
     Type: AWS::EC2::Subnet
     Metadata:
       Comment: Tgw Subnet 03
@@ -465,61 +465,61 @@ Resources:
         Ref: VPC
       Tags:
       - Key: Name
-        Value: !Sub "${AWS::StackName}-tgw-subnet03"
+        Value: !Sub "${AWS::StackName}-TgwSubnet3"
 
   PublicSubnet1RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref public-subnet01
+      SubnetId: !Ref PublicSubnet1
       RouteTableId: !Ref PublicRouteTable
 
   PublicSubnet2RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref public-subnet02
+      SubnetId: !Ref PublicSubnet2
       RouteTableId: !Ref PublicRouteTable
 
   PublicSubnet3RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref public-subnet03
+      SubnetId: !Ref PublicSubnet3
       RouteTableId: !Ref PublicRouteTable
 
   PrivateSubnet1RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref private-subnet01
-      RouteTableId: !Ref private-route-table01
+      SubnetId: !Ref PrivateSubnet1
+      RouteTableId: !Ref PrivateRouteTable1
 
   PrivateSubnet2RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref private-subnet02
-      RouteTableId: !Ref private-route-table02
+      SubnetId: !Ref PrivateSubnet2
+      RouteTableId: !Ref PrivateRouteTable2
 
   PrivateSubnet3RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref private-subnet03
-      RouteTableId: !Ref private-route-table03
+      SubnetId: !Ref PrivateSubnet3
+      RouteTableId: !Ref PrivateRouteTable3
 
   Tgw1RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref tgw-subnet01
-      RouteTableId: !Ref tgw-route-table01
+      SubnetId: !Ref TgwSubnet1
+      RouteTableId: !Ref TgwRouteTable1
 
   Tgw2RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref tgw-subnet02
-      RouteTableId: !Ref tgw-route-table02
+      SubnetId: !Ref TgwSubnet2
+      RouteTableId: !Ref TgwRouteTable2
 
   Tgw3RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
-      SubnetId: !Ref tgw-subnet03
-      RouteTableId: !Ref tgw-route-table03
+      SubnetId: !Ref TgwSubnet3
+      RouteTableId: !Ref TgwRouteTable3
 
   ControlPlaneSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -531,7 +531,7 @@ Outputs:
 
   SubnetIds:
     Description: Subnets IDs in the VPC
-    Value: !Join [ ",", [ !Ref public-subnet01, !Ref public-subnet02, !Ref public-subnet03,!Ref private-subnet01, !Ref private-subnet02, !Ref private-subnet03 ] ]
+    Value: !Join [ ",", [ !Ref PublicSubnet1, !Ref PublicSubnet2, !Ref PublicSubnet3,!Ref PrivateSubnet1, !Ref PrivateSubnet2, !Ref PrivateSubnet3 ] ]
 
   SecurityGroups:
     Description: Security group for the cluster control plane communication with worker nodes
