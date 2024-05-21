@@ -91,7 +91,10 @@ metadata:
 type: kubernetes.io/service-account-token  
 EOF6
 kubectl apply -f kubernetes-dashboard-sa-token.yaml
-kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d
+kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d > kubernetes-dashboard-token.out
+K8s_DASHBOARD=$(kubectl get svc kubernetes-dashboard-kong-proxy -o jsonpath='{.status.loadBalancer.ingress[].ip}')
+echo -e j"Access Kubernetes Dashboard at: \nhttps://$K8s_DASHBOARD"
+
 
 exit 0
 
