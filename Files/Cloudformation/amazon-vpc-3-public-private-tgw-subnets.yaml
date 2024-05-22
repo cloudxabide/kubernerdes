@@ -1,4 +1,5 @@
 ---
+
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Amazon EKS Sample VPC - Private and Public subnets'
 # https://docs.aws.amazon.com/codebuild/latest/userguide/cloudformation-vpc-template.html
@@ -86,6 +87,10 @@ Resources:
 
   InternetGateway:
     Type: "AWS::EC2::InternetGateway"
+    Properties:
+      Tags:
+      - Key: Name
+        Value: !Sub '${AWS::StackName}-IGW'
 
   VPCGatewayAttachment:
     Type: "AWS::EC2::VPCGatewayAttachment"
@@ -163,7 +168,7 @@ Resources:
       - Key: Network
         Value: Tgw Route Table03
 
-  public-route:
+  PublicRoute:
     DependsOn: VPCGatewayAttachment
     Type: AWS::EC2::Route
     Properties:
@@ -230,6 +235,7 @@ Resources:
       RouteTableId: !Ref TgwRouteTable3
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref NatGateway3
+
   NatGateway1:
     DependsOn:
     - NatGatewayEIP1
