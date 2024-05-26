@@ -6,7 +6,7 @@ This opinionated installation utilzes Amazon EKS Anywhere and Open Source Softwa
 | Project Homepage | Description |
 |:-----------------|:-------------|
 | [EKS-Anywhere](https://anywhere.eks.amazonaws.com/) | Amazon EKS Anywhere is container management software built by AWS that makes it easier to run and manage Kubernetes on-premises and at the edge. |
-| [Emissary](https://www.getambassador.io/docs/emissary/latest/tutorials/getting-started) | Ingress |
+| [Emissary](https://www.getambassador.io/docs/emissary/latest/tutorials/getting-started) | Emissary-Ingress is the most popular API Gateway Kubernetes-native - open-source, that delivers the scalability, flexibility, and simplicity for some of the world's largest Kubernetes installations. Emissary-Ingress is an open source CNCF incubating project, and it uses the ubiquitous Envoy Proxy at its core. |
 | [MetalLB](https://metallb.universe.tf/) | MetalLB is a load-balancer implementation for bare metal Kubernetes clusters, using standard routing protocols. |
 | [Cilium (OSS)](https://cilium.io/) | Cilium is a networking, observability, and security solution with an eBPF-based dataplane. <BR> (from [Isovalent - a Cisco Company)](https://isovalent.com/) | 
 | [Hubble](https://github.com/cilium/hubble) | Hubble is a fully distributed networking and security observability platform for cloud native workloads. |
