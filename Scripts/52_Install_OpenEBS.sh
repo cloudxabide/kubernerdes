@@ -100,8 +100,37 @@ do
     sudo lvcreate -L100G -nlv_openebs vg_localstorage
     sudo mkfs.ext4 /dev/mapper/vg_localstorage-lv_openebs 
     sudo mkdir /var/openebs
-    echo '/dev/mapper/vg_localstorage-lv_openebs /var/openebs ext4 defaults 0 0' | sudo tee -a /etc/fstab
-    sudo mount -a"
+ ## # ## ###  NEED TO UPDATE THIS TO USE SYSTEMD-MOUNT
+#    echo '/dev/mapper/vg_localstorage-lv_openebs /var/openebs ext4 defaults 0 0' | sudo tee -a /etc/fstab
+
+
+### NOTE: THIS IS UNTESTED YET (2024-06-04)
+# https://www.freedesktop.org/software/systemd/man/latest/systemd.mount.html
+# https://www.freedesktop.org/software/systemd/man/systemd.automount.html
+
+sudo mkdir -p /var/openebs
+
+cat <<'EOF' | sudo tee /etc/systemd/system/mnt-openebs.mount
+[Unit]
+Description=Mount OpenEBS Volume
+Documentation=https://www.freedesktop.org/software/systemd/man/latest/systemd.mount.html
+ 
+[Mount]
+What=/dev/mapper/vg_localstorage-lv_openebs
+Where=/var/openebs
+Type=ext4
+Options=defaults
+DirectoryMode=0770
+#TimeoutSec=10
+ 
+[Install]
+WantedBy=multi-user.target
+
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now mnt-openebs.mount
+
 done
 
 # Make sure the volume/fileystem is created/mounted
