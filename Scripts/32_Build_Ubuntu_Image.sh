@@ -13,7 +13,7 @@ id -u image-builder &>/dev/null || {
 
 OS_RELEASE=`grep ^NAME /etc/os-release | awk -F\" '{ print $2 }'`
 case $OS_RELEASE in
-  "Red Hat Enterprise Linux"|"openSUSE Tumbleweed")
+  "Red Hat Enterprise Linux"|"openSUSE Tumbleweed"|"Fedora"*)
     SECONDARY_GROUP="wheel"
   ;;
   "Ubuntu")
@@ -28,7 +28,7 @@ sudo useradd -m -G${SECONDARY_GROUP} -u1002 -c "Image Builder" -d /home/image-bu
 
 # A new approach to managing sudo for Image Builder (image-builder) user
 echo "image-builder ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/image-builder-nopasswd-all
-restorecon -RFvv /etc/sudoers.d/image-builder-nopasswd-all
+sudo restorecon -RFvv /etc/sudoers.d/image-builder-nopasswd-all
 }
 
 ##
@@ -37,25 +37,45 @@ sudo su - image-builder
 [ `id -u -n` == "image-builder" ] || { echo "ERROR: you should run this as user: image-builder."; echo "  sudo su - image-builder"; sleep 3; exit 0; }
 [ ! -f ${HOME}/.ssh/id_rsa ] && { echo | ssh-keygen -trsa -b2048 -N ''; }
 
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install jq make qemu-kvm libvirt-daemon-system libvirt-clients virtinst cpu-checker libguestfs-tools libosinfo-bin unzip -y
-sudo snap install yq
-sudo usermod -a -G kvm $USER
-grep HostKeyAlgorithms /home/$USER/.ssh/config || { echo "HostKeyAlgorithms +ssh-rsa" >> /home/$USER/.ssh/config; }
-grep PubkeyAcceptedKeyTypes /home/$USER/.ssh/config || { echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> /home/$USER/.ssh/config; } 
-chmod 0600 ${HOME}/.ssh/config
+## OS-specific commands here
+case $OS_RELEASE in
+  "Ubuntu")
+    sudo apt update -y
+    sudo apt upgrade -y
+    sudo apt install jq make qemu-kvm libvirt-daemon-system libvirt-clients virtinst cpu-checker libguestfs-tools libosinfo-bin unzip -y
+    sudo snap install yq
+    sudo usermod -a -G kvm $USER
+    grep HostKeyAlgorithms /home/$USER/.ssh/config || { echo "HostKeyAlgorithms +ssh-rsa" >> /home/$USER/.ssh/config; }
+    grep PubkeyAcceptedKeyTypes /home/$USER/.ssh/config || { echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> /home/$USER/.ssh/config; } 
+    chmod 0600 ${HOME}/.ssh/config
+
+    [ `python --version` != "3.9.0" ] && { sudo apt -y install python3.9; }
+    sudo apt install -y python3-pip
+    python3 -m pip install --user ansible
+
+    # If using Ubuntu 20.04 - you need to set python3.9 as the default
+    # sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
+  ;;
+  "Red Hat Enterprise Linux"|"openSUSE Tumbleweed"|"Fedora"*)
+    # NOTE: this was updated for Fedora - may not work with other releases
+    # I have customized this from the source https://anywhere.eks.amazonaws.com/docs/osmgmt/artifacts/#build-bare-metal-node-images
+    sudo dnf update -y
+    sudo dnf install jq unzip make wget yq -y
+    #sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+    mkdir -p /home/$USER/.ssh
+    echo "HostKeyAlgorithms +ssh-rsa" >> /home/$USER/.ssh/config
+    echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> /home/$USER/.ssh/config
+    sudo chmod 600 /home/$USER/.ssh/config
+    restorecon -Fvv /home/$USER/.ssh/config
+    sudo dnf -y install python3-pip.noarch
+    python3 -m pip install --user ansible
+  ;;
+  *)
+    SECONDARY_GROUP="admin"
+  ;;
+esac
 
 echo "If you just created the user - you need to logout/login to recognize being added to the kvm group"
-
-[ ! -f /usr/bin/make ] && sudo apt-get install make
-[ ! -f /usr/bin/jq ] && sudo apt install -y jq
-[ `python --version` != "3.9.0" ] && { sudo apt -y install python3.9; }
-sudo apt install -y python3-pip
-python3 -m pip install --user ansible
-
-# If using Ubuntu 20.04 - you need to set python3.9 as the default
-# sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
 
 #export EKSA_RELEASE_VERSION=v0.19.0 # Manually define version
 export EKSA_RELEASE_VERSION=$(curl -sL https://anywhere-assets.eks.amazonaws.com/releases/eks-a/manifest.yaml | yq ".spec.latestVersion")
