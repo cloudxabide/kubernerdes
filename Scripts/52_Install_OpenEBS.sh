@@ -167,3 +167,17 @@ kubectl patch storageclass openebs-jiva-csi-default -p '{"metadata": {"annotatio
 kubectl get sc
 
 exit 0
+
+## Code Snippet to run something on the nodes
+
+for HOST in $HOSTS
+do
+  echo "################################################"
+  ssh -i ~/.ssh/id_ecdsa-kubernerdes.lab ec2-user@$HOST "
+    uname -n
+    # Your code goes here
+    #sudo lvresize -L+300G /dev/mapper/vg_localstorage-lv_openebs
+    #sudo resize2fs /dev/mapper/vg_localstorage-lv_openebs 400G
+    df -h | grep openebs"
+  echo
+done
