@@ -69,7 +69,7 @@ kubectl create -f cilium-preflight.yaml
 # Then start a while loop until the first one starts (and there is no longer a '0' in the output from the command)
 # NOTE:  I need to improve this logic to check for the "DESIRED" number and wait until the correct number is running
 kubectl get daemonset -n kube-system | sed -n '1p;/cilium/p'
-while sleep 2; do echo; ( kubectl get daemonset -n kube-system | sed -n '1p;/cilium/p' | grep 0; ) || break; done
+while sleep 2; do echo; ( kubectl get daemonset -n kube-system | sed -n '1p;/cilium/p' | grep -w 0; ) || break; done
 
 # Once the daemonset is running
 echo "Note:  delete Cilium PreFlight Check"
@@ -92,7 +92,7 @@ kubectl delete service hubble-peer --namespace kube-system
 kubectl delete daemonset cilium --namespace kube-system
 kubectl delete deployment cilium-operator --namespace kube-system
 kubectl delete clusterrole cilium-operator
-# The following were new additions (2024-04-21)jjj
+# The following were new additions (2024-04-21)
 kubectl delete role cilium-config-agent -n kube-system # if you ran the pre-flight test
 kubectl delete rolebinding cilium-config-agent -n kube-system
 }
@@ -119,7 +119,8 @@ while sleep 2; do { echo "Waiting for connectivity..."; kubectl -n kube-system e
 
 ## Test Cilium Connectivity
 echo "Running Cilium Connectivity Test - This will take a few minutes."
-cilium connectivity test
+cilium connectivity test >  cilium_connectivity_test.out
+cd -
 
 exit 0
 
