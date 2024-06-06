@@ -12,6 +12,7 @@
 #            Likely do an NSLOOKUP to get the IP from DNS, then assign
 
 cd ~/eksa/$CLUSTER_NAME/latest/
+mkdir service_exposure; cd $_
 
 SERVICEMAPFILE=./SERVICEMAP.csv
 cat << EOF2 | tee $SERVICEMAPFILE
@@ -30,6 +31,7 @@ do
 done
 
 kubectl get svc -A | grep LoadBalancer
+cd -
 
 exit 0
 
