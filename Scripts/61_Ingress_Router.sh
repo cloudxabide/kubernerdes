@@ -10,7 +10,11 @@
 ########################### ###########################
 # Install MetalLB
 # https://metallb.universe.tf/installation/
+mkdir ~/eksa/$CLUSTER_NAME/latest/metallb
+cd ~/eksa/$CLUSTER_NAME/latest/metallb
+
 # First, see what changes would occur
+echo "Note:  Showing differences that will be applied" 
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl diff -f - -n kube-system
@@ -19,9 +23,6 @@ kubectl diff -f - -n kube-system
 kubectl get configmap kube-proxy -n kube-system -o yaml | \
 sed -e "s/strictARP: false/strictARP: true/" | \
 kubectl apply -f - -n kube-system
-
-mkdir ~/eksa/$CLUSTER_NAME/latest/metallb
-cd ~/eksa/$CLUSTER_NAME/latest/metallb
 
 # Test without this
 cat << EOF2 | tee metallb-ns.yaml
@@ -63,6 +64,7 @@ spec:
   ipAddressPools:
   - default
 EOF4
+# NOTE:  make sure that this runs successfully
 kubectl apply -f metallb-config.yaml
 cd -
 
