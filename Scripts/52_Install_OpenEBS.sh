@@ -17,6 +17,7 @@
 # HOSTS="eks-mgmt-01 eks-mgmt-02 eks-mgmt-03"
 # kubectl get nodes -o=jsonpath='{.items[1].metadata.labels.kubernetes\.io/hostname}'
 HOSTS=$(kubectl get nodes | awk '{ print $1 }' | grep -v ^NAME)
+echo "Hosts: $HOSTS"
 
 # Install the iSCSI components on the worker nodes
 # NOTE:  If openEBS was something to be used in "production", you would want to include these 
@@ -97,22 +98,17 @@ do
     sudo partprobe $EBS_DEVICE
     sudo pvcreate -f ${EBS_DEVICE_PARTITION}
     sudo vgcreate vg_localstorage ${EBS_DEVICE_PARTITION}
-    sudo lvcreate -L100G -nlv_openebs vg_localstorage
+    sudo lvcreate -L300G -nlv_openebs vg_localstorage
     sudo mkfs.ext4 /dev/mapper/vg_localstorage-lv_openebs 
     sudo mkdir /var/openebs
- ## # ## ###  NEED TO UPDATE THIS TO USE SYSTEMD-MOUNT
-#    echo '/dev/mapper/vg_localstorage-lv_openebs /var/openebs ext4 defaults 0 0' | sudo tee -a /etc/fstab
-# sudo systemctl daemon-reload
-# sudo mount -a
 
-
-### NOTE: THIS IS UNTESTED YET (2024-06-04)
+# Initial tests of using systemd-mnt look good (2024-06-06)
 # https://www.freedesktop.org/software/systemd/man/latest/systemd.mount.html
 # https://www.freedesktop.org/software/systemd/man/systemd.automount.html
 
 sudo mkdir -p /var/openebs
 
-cat <<'EOF' | sudo tee /etc/systemd/system/mnt-openebs.mount
+cat <<'EOF' | sudo tee /etc/systemd/system/var-openebs.mount
 [Unit]
 Description=Mount OpenEBS Volume
 Documentation=https://www.freedesktop.org/software/systemd/man/latest/systemd.mount.html
@@ -131,7 +127,7 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
-sudo systemctl enable --now mnt-openebs.mount
+sudo systemctl enable --now var-openebs.mount"
 
 done
 
