@@ -28,9 +28,9 @@ EOF
 [ -z $EKSA_AWS_ACCESS_KEY_ID ] && { echo "Whoa there.... you need to set your EKSA_AWS_ACCESS_KEY_ID and associated variables, if you wish to use Curated Packages"; sleep 4;  }
 }
 
-#############
-## START HERE
-#############
+############# ############# ############# ############# ############# #############
+## START HERE ## START HERE ## START HERE ## START HERE ## START HERE ## START HERE
+############# ############# ############# ############# ############# #############
 ## Cleanup existing Docker Containers 
 cd
 docker kill $(docker ps -a | egrep 'boots|eks' | awk '{ print $1 }' | grep -v CONTAINER)
@@ -57,6 +57,7 @@ ln -s $EKS_DIR ${EKS_BASE}/latest
 cd ${EKS_DIR}
 mkdir $CLUSTER_NAME 
 
+# This is a static URL (which references resources based on name/environment)
 curl -o ENV.vars https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/ENV.vars
 . ./ENV.vars
 
@@ -64,10 +65,10 @@ curl -o ENV.vars https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/
 eksctl anywhere generate clusterconfig $CLUSTER_NAME --provider tinkerbell > $CLUSTER_CONFIG.default
 
 # Retrieve the hardware inventory csv file
-curl -o hardware.csv $REPO/main/Files/hardware-${NODE_LAYOUT}.csv
+curl -o hardware.csv ${REPO}main/Files/hardware-${NODE_LAYOUT}.csv
 
 # However, I have one that I have already modified for my needs
-curl -o $CLUSTER_CONFIG.vanilla $REPO/main/Files/$CLUSTER_CONFIG_SOURCE
+curl -o $CLUSTER_CONFIG.vanilla ${REPO}main/Files/$CLUSTER_CONFIG_SOURCE
 
 # Retrieve the pub key for the "kubernedes.lab" domain
 export MY_SSH_KEY=$(cat ~/.ssh/*kubernerdes.lab.pub)
