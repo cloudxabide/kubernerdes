@@ -42,6 +42,7 @@ persistence:
   storageClassName:  $DEFAULT_STORAGE_CLASS 
 EOF1
 helm upgrade my-grafana grafana/grafana -f my-grafana-storage.yaml -n $GRAFANA_NAMESPACE 
+cd -
 
 ## Kubernetes Dashbaord (WIP)
 # https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
@@ -49,6 +50,7 @@ helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 kubectl -n kubernetes-dashboard patch svc kubernetes-dashboard-kong-proxy -p='{"spec": {"type": "LoadBalancer"}}'
 
+mkdir kubernetes-dashboard; cd $_
 # https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md
 cat << EOF3 | tee kubernetes-dashboard-sa.yaml
 ---
@@ -78,7 +80,6 @@ EOF5
 kubectl apply -f kubernetes-dashboard-clusterrolebinding.yaml
 
 # kubectl -n kubernetes-dashboard create token admin-user
-
 cat << EOF6 | tee kubernetes-dashboard-sa-token.yaml
 ---
 apiVersion: v1
@@ -91,10 +92,12 @@ metadata:
 type: kubernetes.io/service-account-token  
 EOF6
 kubectl apply -f kubernetes-dashboard-sa-token.yaml
-kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d > kubernetes-dashboard-token.out
-K8s_DASHBOARD=$(kubectl get svc kubernetes-dashboard-kong-proxy -o jsonpath='{.status.loadBalancer.ingress[].ip}')
-echo -e j"Access Kubernetes Dashboard at: \nhttps://$K8s_DASHBOARD"
 
+kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath={".data.token"} | base64 -d > kubernetes-dashboard-token.out
+
+# NOTE: THIS DOESN'T WORK AS MetalLB has not been enabled yet and therefore kong-proxy does not have a "public" IP
+#K8s_DASHBOARD=$(kubectl get svc kubernetes-dashboard-kong-proxy -n kubernetes-dashboard -o jsonpath='{.status.loadBalancer.ingress[].ip}')
+#echo -e "Access Kubernetes Dashboard at: \nhttps://$K8s_DASHBOARD"
 
 exit 0
 
