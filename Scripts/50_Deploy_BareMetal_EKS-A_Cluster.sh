@@ -57,6 +57,9 @@ ln -s $EKS_DIR ${EKS_BASE}/latest
 cd ${EKS_DIR}
 mkdir $CLUSTER_NAME 
 
+curl -o ENV.vars https://raw.githubusercontent.com/cloudxabide/kubernerdes/main/Files/ENV.vars
+. ./ENV.vars
+
 # The following is how you create a default clusterconfig
 eksctl anywhere generate clusterconfig $CLUSTER_NAME --provider tinkerbell > $CLUSTER_CONFIG.default
 

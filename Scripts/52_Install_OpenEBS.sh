@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #     Purpose: This script will prep the hosts and then install/configure openEBS
-#        Date: 2024-01-15
-#      Status: Complete/Working (you can run this unattended now)
-# Assumptions: This script assumes that you have a dummy/disposable cluster, created using 3-nodes 
+#        Date: 2024-06-04
+#      Status: Work in Progress - updated code to add mount functionality
+# Assumptions: This script assumes that you are using a dummy/disposable cluster, created using 3-nodes 
 #                which are both control-plane and worker nodes (basically my lab setup).
 #              Additionally, this is intended to only run on Bare Metal nodes.
 #        Todo:
@@ -102,6 +102,8 @@ do
     sudo mkdir /var/openebs
  ## # ## ###  NEED TO UPDATE THIS TO USE SYSTEMD-MOUNT
 #    echo '/dev/mapper/vg_localstorage-lv_openebs /var/openebs ext4 defaults 0 0' | sudo tee -a /etc/fstab
+# sudo systemctl daemon-reload
+# sudo mount -a
 
 
 ### NOTE: THIS IS UNTESTED YET (2024-06-04)
