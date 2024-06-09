@@ -35,6 +35,11 @@ cd -
 
 exit 0
 
-# I will Add these Grafana dashboards 315 1860 18283
+# I will Add these Grafana dashboards 
+315 | Kubernetes cluster monitoring (via Prometheus)
+1860 | Node Exporter Full
+14981 | CoreDNS
+18283 | Kubernetes
+
 # The URL for the prometheus endpoint (to add as a Datasource for Grafana) 
 # http://prometheus-k8s.monitoring:9090
