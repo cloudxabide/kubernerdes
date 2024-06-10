@@ -16,7 +16,7 @@
 # TODO: Make this a dyanmic process to gather the name of all the nodes
 # HOSTS="eks-mgmt-01 eks-mgmt-02 eks-mgmt-03"
 # kubectl get nodes -o=jsonpath='{.items[1].metadata.labels.kubernetes\.io/hostname}'
-HOSTS=$(kubectl get nodes | awk '{ print $1 }' | grep -v ^NAME)
+HOSTS=$(kubectl get nodes --no-headers | awk '{ print $1 }')
 echo "Hosts: $HOSTS"
 
 # Install the iSCSI components on the worker nodes
