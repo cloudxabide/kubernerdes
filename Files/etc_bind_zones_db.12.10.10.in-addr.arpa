@@ -15,6 +15,9 @@ $TTL    604800
 ; Admin Host
 10      IN      PTR     thekubernerd.kubernerdes.lab.
 
+; Jetsons Lab Hosts
+20	IN	PTR	xaviar.kubernerdes.lab.
+
 ; EKS Anywhere Endpoints
 101	IN	PTR	tinkerbell-eks-mgmt.kubernerdes.lab.
 102	IN	PTR	tinkerbell-eks-work.kubernerdes.lab.
