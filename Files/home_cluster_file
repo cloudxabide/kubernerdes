@@ -26,7 +26,7 @@ export VSPHERE_DATASTORE=Kubernerdes
 export VSPHERE_FOLDER=EKSAnywhere
 export VSPHERE_NETWORK=DPortGroup-Kubernerdes # Needed to use this value, for some reason
 export VSPHERE_RESOURCE_POOL=Kubernerdes
-export VSPHERE_SERVER=vmw-vcenter7.kubernerdes.lab
+export VSPHERE_SERVER=vsphere.kubernerdes.lab
 
 # export VSPHERE_THUMBPRINT=$(govc about.cert -thumbprint -k)
 export VSPHERE_THUMBPRINT=$(govc about.cert -k -json | jq -r '.thumbprintSHA1')
