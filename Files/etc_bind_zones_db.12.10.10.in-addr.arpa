@@ -1,5 +1,5 @@
 $ORIGIN 12.10.10.in-addr.arpa.
-$TTL    604800
+$TTL    86400 
 @       IN      SOA     thekubernerd.kubernerdes.lab. root.kubernerdes.lab. (
                         2024032201   ; Serial
                         604800       ; Refresh
@@ -11,12 +11,20 @@ $TTL    604800
 
 ; Firewall
 1	IN	PTR	gateway.kubernerdes.lab.
+2	IN	PTR	airport.kubernerdes.lab.
 
 ; Admin Host
 10      IN      PTR     thekubernerd.kubernerdes.lab.
 
 ; Jetsons Lab Hosts
 20	IN	PTR	xaviar.kubernerdes.lab.
+
+; VMware Hosts
+30	IN	PTR	vsphere.kubernerdes.lab.	
+31	IN	PTR	vmw-esx-01.kubernerdes.lab.
+
+; TrueNAS Host
+40	IN	PTR	truenas.kubernerdes.lab.
 
 ; EKS Anywhere Endpoints
 101	IN	PTR	tinkerbell-eks-mgmt.kubernerdes.lab.
@@ -40,22 +48,14 @@ $TTL    604800
 132	IN	PTR	eks-gpu-02.kubernerdes.lab.
 
 ; EKS-A Hosts (vSphere cluster - mgmt)
-140    IN     PTR eks-vmw-control-plane.kubernerdes.lab.
-141    IN     PTR eks-vmw-01.kubernerdes.lab.
-142    IN     PTR eks-vmw-02.kubernerdes.lab.
-143    IN     PTR eks-vmw-03.kubernerdes.lab.
-144    IN     PTR eks-vmw-04.kubernerdes.lab.
-145    IN     PTR eks-vmw-05.kubernerdes.lab.
-146    IN     PTR eks-vmw-06.kubernerdes.lab.
-147    IN     PTR eks-vmw-07.kubernerdes.lab.
-148    IN     PTR eks-vmw-08.kubernerdes.lab.
-149    IN     PTR eks-vmw-09.kubernerdes.lab.
+140    IN     PTR 	eks-vmw-control-plane.kubernerdes.lab.
+141    IN     PTR 	eks-vmw-01.kubernerdes.lab.
+142    IN     PTR 	eks-vmw-02.kubernerdes.lab.
+143    IN     PTR 	eks-vmw-03.kubernerdes.lab.
+144    IN     PTR 	eks-vmw-04.kubernerdes.lab.
+145    IN     PTR 	eks-vmw-05.kubernerdes.lab.
+146    IN     PTR 	eks-vmw-06.kubernerdes.lab.
+147    IN     PTR 	eks-vmw-07.kubernerdes.lab.
+148    IN     PTR 	eks-vmw-08.kubernerdes.lab.
+149    IN     PTR 	eks-vmw-09.kubernerdes.lab.
 
-; Nutanix Cluster (VIP, Nodes, CVM)
-210	IN	PTR	nutanix-vip.kubernerdes.lab.
-211	IN	PTR	nutanix-node-01.kubernerdes.lab.
-212	IN	PTR	nutanix-node-02.kubernerdes.lab.
-213	IN	PTR	nutanix-node-03.kubernerdes.lab.
-221	IN	PTR	nutanix-cvm-01.kubernerdes.lab.
-222	IN	PTR	nutanix-cvm-02.kubernerdes.lab.
-223	IN	PTR	nutanix-cvm-03.kubernerdes.lab.
