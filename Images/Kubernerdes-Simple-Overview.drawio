@@ -1,0 +1,66 @@
+<mxfile modified="2024-05-16T19:56:45.838Z" host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="z-Ca6vjnW2VdVhDtNOYy" version="24.4.0" type="device">
+  <diagram id="Ht1M8jgEwFfnCIfOTk4-" name="Page-1">
+    <mxGraphModel dx="1224" dy="812" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-1" value="" style="rounded=1;arcSize=10;dashed=0;fillColor=none;gradientColor=none;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="141" y="270" width="817" height="540" as="geometry" />
+        </mxCell>
+        <mxCell id="GOxQ-0-st3Wd1h4aU8St-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;curved=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="GOxQ-0-st3Wd1h4aU8St-1" target="giLpwNqlkb6RfxS4_c0a-28">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="347" y="309" />
+              <mxPoint x="670" y="309" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GOxQ-0-st3Wd1h4aU8St-1" value="&amp;nbsp; &amp;nbsp; Subnet:&amp;nbsp; 192.168.0.0/22" style="fillColor=none;strokeColor=#5A6C86;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#5A6C86;whiteSpace=wrap;html=1;align=left;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="188" y="340" width="212" height="425" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-2" value="" style="dashed=0;html=1;shape=mxgraph.aws3.corporate_data_center;fillColor=#7D7C7C;gradientColor=none;dashed=0;" parent="1" vertex="1">
+          <mxGeometry x="200" y="243" width="30" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-4" value="eks-mgmt-01" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.dataCenter;strokeColor=#5E5E5E;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="480" y="625" width="77.96" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-6" value="eks-mgmt-02" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.dataCenter;strokeColor=#5E5E5E;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="640" y="625" width="77.96" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-7" value="eks-mgmt-03" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.dataCenter;strokeColor=#5E5E5E;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="800" y="625" width="77.96" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-9" value="eks-admin" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;strokeWidth=1;align=center;outlineConnect=0;dashed=0;outlineConnect=0;shape=mxgraph.aws3d.dataServer;strokeColor=#5E5E5E;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="638.37" y="360" width="81.23" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-21" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/switch/Switch_24_port_L3.svg;" parent="1" vertex="1">
+          <mxGeometry x="641.78" y="510" width="74.4" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="giLpwNqlkb6RfxS4_c0a-26" target="giLpwNqlkb6RfxS4_c0a-29" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-26" value="" style="image;aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image=img/lib/active_directory/internet_cloud.svg;" parent="1" vertex="1">
+          <mxGeometry x="530" width="280" height="176.4" as="geometry" />
+        </mxCell>
+        <mxCell id="GOxQ-0-st3Wd1h4aU8St-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.732;exitY=-0.007;exitDx=0;exitDy=0;startArrow=classic;startFill=1;curved=1;exitPerimeter=0;" edge="1" parent="1" source="giLpwNqlkb6RfxS4_c0a-27" target="giLpwNqlkb6RfxS4_c0a-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-27" value="&amp;nbsp; &amp;nbsp; Subnet:&amp;nbsp; 10.10.12.0/22" style="fillColor=none;strokeColor=#5A6C86;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#5A6C86;whiteSpace=wrap;html=1;align=left;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="445.98" y="340" width="466" height="425" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="giLpwNqlkb6RfxS4_c0a-28" target="giLpwNqlkb6RfxS4_c0a-26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-28" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.generic_firewall;" parent="1" vertex="1">
+          <mxGeometry x="629.22" y="226" width="81.55" height="69" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-29" value="Amazon ECR" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecr;" parent="1" vertex="1">
+          <mxGeometry x="346" y="49.2" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="giLpwNqlkb6RfxS4_c0a-30" value="Workstation" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/computer_and_terminals/Laptop.svg;" parent="1" vertex="1">
+          <mxGeometry x="227" y="397" width="115.35" height="117" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
